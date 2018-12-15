@@ -16,5 +16,22 @@ namespace Steganografia
         {
             InitializeComponent();
         }
+
+        private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            DialogResult result = openFileDialog1.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                string path = openFileDialog1.FileName;
+                Console.WriteLine(path);
+                pictureBox1.ImageLocation = path;
+            }
+            Console.WriteLine(result);
+        }
     }
 }
