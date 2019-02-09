@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+ 
 namespace Steganografia
 {
     public partial class Form1 : Form
@@ -29,7 +29,9 @@ namespace Steganografia
             {
                 string path = openFileDialog1.FileName;
                 Console.WriteLine(path);
+                ImageHolder
                 pictureBox1.ImageLocation = path;
+                pictureBox1.Image = 
             }
             Console.WriteLine(result);
         }

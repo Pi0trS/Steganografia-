@@ -22,7 +22,7 @@ namespace Steganografia.Modle
         }
         Image getImage()
         {
-
+            return image;
         }
     }
 }
