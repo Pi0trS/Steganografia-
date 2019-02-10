@@ -15,6 +15,7 @@ namespace Steganografia
         {
             setImage(path);
         }
+        
 
         void setImage(string path)
         {
