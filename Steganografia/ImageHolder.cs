@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Steganografia.Modle
+namespace Steganografia
 {
     class ImageHolder
     {
@@ -20,7 +20,7 @@ namespace Steganografia.Modle
         {
             image = Image.FromFile(path);
         }
-        Image getImage()
+        public Image getImage()
         {
             return image;
         }

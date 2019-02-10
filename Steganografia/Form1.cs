@@ -28,10 +28,8 @@ namespace Steganografia
             if (result == DialogResult.OK)
             {
                 string path = openFileDialog1.FileName;
-                Console.WriteLine(path);
-                ImageHolder
-                pictureBox1.ImageLocation = path;
-                pictureBox1.Image = 
+                ImageHolder image = new ImageHolder(path);
+                pictureBox1.Image = image.getImage();
             }
             Console.WriteLine(result);
         }
