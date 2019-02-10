@@ -33,5 +33,20 @@ namespace Steganografia
             }
             Console.WriteLine(result);
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+           pictureBox2.Image = DataHide.hideInformation(new Bitmap(pictureBox1.Image), textBox1.Text,textBox2.Text);
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            pictureBox2.Image.Save("a.bmp");
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            textBox1.Text = DataHide.showInformation(new Bitmap(pictureBox1.Image), textBox2.Text);
+        }
     }
 }
