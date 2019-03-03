@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Security.Cryptography;
 using System.IO;
 using System.Collections;
+using System.Drawing.Imaging;
 
 namespace Steganografia
 {
@@ -15,23 +16,75 @@ namespace Steganografia
         public static ArrayList ImageToBits(Image oldImage)
         {
             Bitmap newBitmap = new Bitmap(oldImage);
-            ArrayList imageInBits = new ArrayList();
+            ArrayList imageInColors = new ArrayList();
             Color tmpColor;
             for (int i = 0; i < oldImage.Width; i++)
             {
                 for (int j = 0; j < oldImage.Height; j++)
                 {
                     tmpColor = newBitmap.GetPixel(i, j);
-                    imageInBits.Add(Convert.ToString(tmpColor.R, 2));
-                    imageInBits.Add(Convert.ToString(tmpColor.R, 2));
-                    imageInBits.Add(Convert.ToString(tmpColor.R, 2));
-
+                    imageInColors.Add(Convert.ToString(tmpColor.R, 2));
+                    imageInColors.Add(Convert.ToString(tmpColor.G, 2));
+                    imageInColors.Add(Convert.ToString(tmpColor.B, 2));
                 }
             }
+            return imageInColors;
+        }
+        public static Bitmap BitsToBmp(Image image, ArrayList bitsRGBA)
+        {
+            Bitmap bmp = new Bitmap(image.Width, image.Height, format: PixelFormat.Format24bppRgb);
+            int pixR, pixG, pixB, pixPos = 0;
+            for(int i = 0; i< image.Width; i++)
+            {
+                for(int j = 0; j < image.Height; j++)
+                {
+                    pixR = Convert.ToInt32(bitsRGBA[pixPos + 0].ToString(), 2);
+                    pixG = Convert.ToInt32(bitsRGBA[pixPos + 1].ToString(), 2);
+                    pixB = Convert.ToInt32(bitsRGBA[pixPos + 2].ToString(), 2);
 
-            return;
+                    bmp.SetPixel(i, j, Color.FromArgb(pixR, pixG, pixB));
+                    pixPos += 3;
+                }
+            }
+            return bmp;
         }
 
+        public static ArrayList InsretTextLenght(ArrayList imageInColors, String textToInsert)
+        {
+            ArrayList newImageInColors = new ArrayList();
+
+            for (int i = 0; i < 12; i++)
+            {
+                newImageInColors.Add(imageInColors[i].ToString().Remove(imageInColors[i].ToString().Length - 1, 1) + textToInsert[i]);
+            }
+            return newImageInColors;
+        }
+
+        public static String OutputTextLenght(ArrayList imageInColors)
+        {
+            String lenght = "", tmpLenght = "";
+            for (int i = 0; i < 12; i++)
+            {
+                tmpLenght = imageInColors.ToString();
+                lenght += tmpLenght[tmpLenght.Length - 1];    
+            }
+            return lenght;
+        }
+
+        public static String lenghtInBits(String s)
+        {
+            String lenght = Convert.ToString(s.Count(), 2);
+            while(lenght.Count() < 12)
+            {
+                lenght += "0"; 
+            }
+            return lenght;
+        }
+
+        public static int lenghtInInt(String s)
+        {
+
+        }
 
         public static Image hideInformationNoWork(Bitmap oldImage, string data, string password)
         {
