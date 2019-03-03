@@ -12,6 +12,27 @@ namespace Steganografia
 {
     class DataHide
     {
+        public static ArrayList ImageToBits(Image oldImage)
+        {
+            Bitmap newBitmap = new Bitmap(oldImage);
+            ArrayList imageInBits = new ArrayList();
+            Color tmpColor;
+            for (int i = 0; i < oldImage.Width; i++)
+            {
+                for (int j = 0; j < oldImage.Height; j++)
+                {
+                    tmpColor = newBitmap.GetPixel(i, j);
+                    imageInBits.Add(Convert.ToString(tmpColor.R, 2));
+                    imageInBits.Add(Convert.ToString(tmpColor.R, 2));
+                    imageInBits.Add(Convert.ToString(tmpColor.R, 2));
+
+                }
+            }
+
+            return;
+        }
+
+
         public static Image hideInformationNoWork(Bitmap oldImage, string data, string password)
         {
             Bitmap encryptedImage = new Bitmap(oldImage);
