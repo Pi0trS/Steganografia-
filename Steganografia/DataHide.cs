@@ -83,8 +83,11 @@ namespace Steganografia
 
         public static int lenghtInInt(String s)
         {
-
+            int lenght = Convert.ToInt32(s, 2);
+            return lenght;
         }
+
+
 
         public static Image hideInformationNoWork(Bitmap oldImage, string data, string password)
         {
