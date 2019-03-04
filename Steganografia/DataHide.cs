@@ -87,7 +87,10 @@ namespace Steganografia
             return lenght;
         }
 
+        public static String mesageToBits(String mesage)
+        {
 
+        }
 
         public static Image hideInformationNoWork(Bitmap oldImage, string data, string password)
         {
