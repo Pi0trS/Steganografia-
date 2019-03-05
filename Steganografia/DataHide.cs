@@ -89,7 +89,23 @@ namespace Steganografia
 
         public static String mesageToBits(String mesage)
         {
+            int tmpI;
+            String tmpS, mesageInBits = "";
+            foreach (var c in mesage)
+            {
+                tmpI = Convert.ToInt32(c);
+                tmpS = Convert.ToString(tmpI, 2);
 
+                if (tmpS.Count() == 6)
+                {
+                    mesageInBits += ("0" + tmpS);
+                }
+                else if(tmpS.Count() == 7)
+                {
+                    mesageInBits += tmpS;
+                }
+            }
+            return mesageInBits;
         }
 
         public static Image hideInformationNoWork(Bitmap oldImage, string data, string password)
