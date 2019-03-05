@@ -108,6 +108,17 @@ namespace Steganografia
             return mesageInBits;
         }
 
+        public static String BitsToMessage(String messageInBits)
+        {
+            String decodeMessage = "", tmpBitsString = "";
+            int tmpI;
+
+            foreach (var c in messageIoBits)
+            {
+
+            }
+        }
+
         public static Image hideInformationNoWork(Bitmap oldImage, string data, string password)
         {
             Bitmap encryptedImage = new Bitmap(oldImage);
