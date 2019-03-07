@@ -113,10 +113,18 @@ namespace Steganografia
             String decodeMessage = "", tmpBitsString = "";
             int tmpI;
 
-            foreach (var c in messageIoBits)
+            foreach (var c in messageInBits)
             {
+                tmpBitsString += c;
+                if(tmpBitsString.Length % 7 == 0)
+                {
+                    tmpI = Convert.ToInt32(tmpBitsString, 2);
+                    decodeMessage += Convert.ToChar(tmpI);
+                    tmpBitsString = "";
 
+                }
             }
+            return decodeMessage;
         }
 
         public static Image hideInformationNoWork(Bitmap oldImage, string data, string password)
