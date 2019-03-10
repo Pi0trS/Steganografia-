@@ -280,7 +280,6 @@ namespace Steganografia
                 x2 = (Convert.ToByte(a2) ^ Convert.ToByte(a3)).ToString();
 
                 textImage = textImage + x1 + x2;
-                //MessageBox.Show("Dekoduje - lista: " + text_RGB.ToString());
                 if (textImage.Contains("00000001"))
                 {
                     i = lenghtImage + 5;
