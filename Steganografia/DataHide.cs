@@ -13,7 +13,7 @@ namespace Steganografia
 {
     class DataHide
     {
-        public static ArrayList ImageToBits(Image oldImage)
+        public static ArrayList imageToBits(Image oldImage)
         {
             Bitmap newBitmap = new Bitmap(oldImage);
             ArrayList imageInColors = new ArrayList();
@@ -30,7 +30,7 @@ namespace Steganografia
             }
             return imageInColors;
         }
-        public static Bitmap BitsToBmp(Image image, ArrayList bitsRGBA)
+        public static Bitmap bitsToBmp(Image image, ArrayList bitsRGBA)
         {
             Bitmap bmp = new Bitmap(image.Width, image.Height, format: PixelFormat.Format24bppRgb);
             int pixR, pixG, pixB, pixPos = 0;
@@ -49,7 +49,7 @@ namespace Steganografia
             return bmp;
         }
 
-        public static ArrayList InsretTextLenght(ArrayList imageInColors, String textToInsert)
+        public static ArrayList insretTextLenght(ArrayList imageInColors, String textToInsert)
         {
             ArrayList newImageInColors = new ArrayList();
 
@@ -60,7 +60,7 @@ namespace Steganografia
             return newImageInColors;
         }
 
-        public static String OutputTextLenght(ArrayList imageInColors)
+        public static String outputTextLenght(ArrayList imageInColors)
         {
             String lenght = "", tmpLenght = "";
             for (int i = 0; i < 12; i++)
@@ -108,7 +108,7 @@ namespace Steganografia
             return mesageInBits;
         }
 
-        public static String BitsToMessage(String messageInBits)
+        public static String bitsToMessage(String messageInBits)
         {
             String decodeMessage = "", tmpBitsString = "";
             int tmpI;
@@ -211,11 +211,11 @@ namespace Steganografia
             String tmpS = lenghtMesage + "00000001";
             int repeat = lenghtMesage.Length;
             int j = 0;
-            Byte ab1, ab2, ab3;
+            byte ab1, ab2, ab3;
             String a1, a2, a3;
             String x1, x2, tmpS1, tmpS2, tmpS3;
 
-            for (int i = 12; i < countImage; i++)
+            for (int i = 12; i < countImage; i+=3)
             {
                 tmpS1 = Image[i].ToString();
                 tmpS2 = Image[i + 1].ToString();
@@ -288,6 +288,19 @@ namespace Steganografia
             }
             return textImage;
         }
+
+        public static Image hideInformation(Image oldImage, String message, String password)
+        {
+            ArrayList image = imageToBits(oldImage);
+            String messageLenght = lenghtInBits(message);
+            ArrayList lenghtImage = insretTextLenght(image, messageLenght);
+            String encryptedMessage = encrypt(message, password);
+            String messageBits = mesageToBits(encryptedMessage);
+            ArrayList newImage = codingXor(lenghtImage, image, messageBits);
+            Bitmap newBitmap = bitsToBmp(oldImage, newImage);
+            return newBitmap;
+        }
+
         /*
         public static Image hideInformationNoWork(Bitmap oldImage, string data, string password)
         {
