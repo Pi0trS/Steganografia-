@@ -203,7 +203,7 @@ namespace Steganografia
             }
         }
 
-        public static ArrayList CodingXor(ArrayList lenghtImage, ArrayList Image, String lenghtMesage)
+        public static ArrayList codingXor(ArrayList lenghtImage, ArrayList Image, String lenghtMesage)
         {
             ArrayList codedImage = new ArrayList();
             codedImage = lenghtImage;
@@ -262,6 +262,32 @@ namespace Steganografia
                 codedImage.Add(tmpS3.Remove(tmpS3.Length - 1, 1) + ab3.ToString());
             }
             return codedImage;
+        }
+
+        public static String decodingXor(ArrayList image, int lenghtMesage)
+        {
+            String textImage = "";
+            int lenghtImage = image.Count;
+            String  a1, a2, a3, x1, x2;
+            int e = 0;
+            for (int i = 12; i < lenghtImage; i = i + 3)
+            {
+                a1 = image[i].ToString()[image[i].ToString().Length - 1].ToString();
+                a2 = image[i + 1].ToString()[image[i + 1].ToString().Length - 1].ToString();
+                a3 = image[i + 2].ToString()[image[i + 2].ToString().Length - 1].ToString();
+
+                x1 = (Convert.ToByte(a1) ^ Convert.ToByte(a3)).ToString();
+                x2 = (Convert.ToByte(a2) ^ Convert.ToByte(a3)).ToString();
+
+                textImage = textImage + x1 + x2;
+                //MessageBox.Show("Dekoduje - lista: " + text_RGB.ToString());
+                if (textImage.Contains("00000001"))
+                {
+                    i = lenghtImage + 5;
+                    textImage = textImage.Remove(textImage.Length - 8, 8);
+                }
+            }
+            return textImage;
         }
         /*
         public static Image hideInformationNoWork(Bitmap oldImage, string data, string password)
