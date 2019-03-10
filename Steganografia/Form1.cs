@@ -46,7 +46,7 @@ namespace Steganografia
 
         private void button3_Click(object sender, EventArgs e)
         {
-            //textBox1.Text = DataHide.showInformation(new Bitmap(pictureBox1.Image), textBox2.Text);
+            textBox1.Text = DataHide.showInformation(pictureBox1.Image, textBox3.Text, textBox2.Text);
         }
     }
 }

@@ -65,7 +65,7 @@ namespace Steganografia
             String lenght = "", tmpLenght = "";
             for (int i = 0; i < 12; i++)
             {
-                tmpLenght = imageInColors.ToString();
+                tmpLenght = imageInColors[i].ToString();
                 lenght += tmpLenght[tmpLenght.Length - 1];    
             }
             return lenght;
@@ -269,8 +269,7 @@ namespace Steganografia
             String textImage = "";
             int lenghtImage = image.Count;
             String  a1, a2, a3, x1, x2;
-            int e = 0;
-            for (int i = 12; i < lenghtImage; i = i + 3)
+            for (int i = 12; i < lenghtImage; i +=3)
             {
                 a1 = image[i].ToString()[image[i].ToString().Length - 1].ToString();
                 a2 = image[i + 1].ToString()[image[i + 1].ToString().Length - 1].ToString();
@@ -301,6 +300,17 @@ namespace Steganografia
             return newBitmap;
         }
 
+        public static string showInformation(Image encryptedImage, String text, String password)
+        {
+            ArrayList image = imageToBits(encryptedImage);
+            String messageLenght = outputTextLenght(image);
+            int messageLenghtinInt = lenghtInInt(messageLenght);
+            String decodeXor = decodingXor(image, messageLenghtinInt);
+            String readeMessage = bitsToMessage(decodeXor);
+            String decryptMessage = decrypt(readeMessage, password);
+            return decryptMessage;
+
+        }
         /*
         public static Image hideInformationNoWork(Bitmap oldImage, string data, string password)
         {
