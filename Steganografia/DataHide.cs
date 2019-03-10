@@ -202,6 +202,67 @@ namespace Steganografia
                 return decryptedB;
             }
         }
+
+        public static ArrayList CodingXor(ArrayList lenghtImage, ArrayList Image, String lenghtMesage)
+        {
+            ArrayList codedImage = new ArrayList();
+            codedImage = lenghtImage;
+            int countImage = Image.Count;
+            String tmpS = lenghtMesage + "00000001";
+            int repeat = lenghtMesage.Length;
+            int j = 0;
+            Byte ab1, ab2, ab3;
+            String a1, a2, a3;
+            String x1, x2, tmpS1, tmpS2, tmpS3;
+
+            for (int i = 12; i < countImage; i++)
+            {
+                tmpS1 = Image[i].ToString();
+                tmpS2 = Image[i + 1].ToString();
+                tmpS3 = Image[i + 2].ToString();
+
+                a1 = tmpS1[tmpS1.Length - 1].ToString();
+                a2 = tmpS2[tmpS2.Length - 1].ToString();
+                a3 = tmpS3[tmpS3.Length - 1].ToString();
+
+                x1 = tmpS[j].ToString();
+                j++;
+                if (j >= tmpS.Length) j = 0;
+                x2 = tmpS[j].ToString();
+                j++;
+                if (j >= tmpS.Length) j = 0;
+
+                ab1 = Convert.ToByte(a1);
+                ab2 = Convert.ToByte(a2);
+                ab3 = Convert.ToByte(a3);
+
+                String result1 = Convert.ToString(ab1 ^ ab3, 2);
+                String result2 = Convert.ToString(ab2 ^ ab3, 2);
+
+                if (result1 != x1 && result2 == x2)
+                {
+                    if (ab1 == 1) ab1 = 0; else ab1 = 1;
+                }
+                else
+                {
+                    if (result1 == x1 && result2 != x2)
+                    {
+                        if (ab2 == 1) ab2 = 0; else ab2 = 1;
+                    }
+                    else
+                    {
+                        if (result1 != x1 && result2 != x2)
+                        {
+                            if (ab3 == 1) ab3 = 0; else ab3 = 1;
+                        }
+                    }
+                }
+                codedImage.Add(tmpS1.Remove(tmpS1.Length - 1, 1) + ab1.ToString());
+                codedImage.Add(tmpS2.Remove(tmpS2.Length - 1, 1) + ab2.ToString());
+                codedImage.Add(tmpS3.Remove(tmpS3.Length - 1, 1) + ab3.ToString());
+            }
+            return codedImage;
+        }
         /*
         public static Image hideInformationNoWork(Bitmap oldImage, string data, string password)
         {
