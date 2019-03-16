@@ -73,8 +73,8 @@ namespace Steganografia
 
         public static String lenghtInBits(String s)
         {
-            String lenght = Convert.ToString(s.Count(), 2);
-            while(lenght.Count() < 12)
+            String lenght = Convert.ToString(s.Length, 2);
+            while(lenght.Length < 12)
             {
                 lenght += "0"; 
             }
@@ -96,11 +96,11 @@ namespace Steganografia
                 tmpI = Convert.ToInt32(c);
                 tmpS = Convert.ToString(tmpI, 2);
 
-                if (tmpS.Count() == 6)
+                if (tmpS.Length == 6)
                 {
                     mesageInBits += ("0" + tmpS);
                 }
-                else if(tmpS.Count() == 7)
+                else if(tmpS.Length == 7)
                 {
                     mesageInBits += tmpS;
                 }
@@ -207,7 +207,7 @@ namespace Steganografia
         {
             ArrayList codedImage = new ArrayList();
             codedImage = lenghtImage;
-            int countImage = Image.Count;
+            int countImage = Image.Length;
             String tmpS = lenghtMesage + "00000001";
             int repeat = lenghtMesage.Length;
             int j = 0;
@@ -267,7 +267,7 @@ namespace Steganografia
         public static String decodingXor(ArrayList image, int lenghtMesage)
         {
             String textImage = "";
-            int lenghtImage = image.Count;
+            int lenghtImage = image.Length;
             String  a1, a2, a3, x1, x2;
             for (int i = 12; i < lenghtImage; i +=3)
             {
