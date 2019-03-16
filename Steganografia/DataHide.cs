@@ -207,7 +207,7 @@ namespace Steganografia
         {
             ArrayList codedImage = new ArrayList();
             codedImage = lenghtImage;
-            int countImage = Image.Length;
+            int countImage = Image.Count;
             String tmpS = lenghtMesage + "00000001";
             int repeat = lenghtMesage.Length;
             int j = 0;
@@ -267,7 +267,7 @@ namespace Steganografia
         public static String decodingXor(ArrayList image, int lenghtMesage)
         {
             String textImage = "";
-            int lenghtImage = image.Length;
+            int lenghtImage = image.Count;
             String  a1, a2, a3, x1, x2;
             for (int i = 12; i < lenghtImage; i +=3)
             {
